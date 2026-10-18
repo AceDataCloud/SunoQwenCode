@@ -4,6 +4,8 @@
 
 **当前为候选源码，未获 Qwen 官方收录、未默认内置。** 实现在 `codex/native-qwen-extension` 分支待人审；main 初始化 README 不是正式包。
 
+**当前运行阻塞（2026-10-18）**：Qwen 0.25.2 能安装并安全保存敏感设置，但 MCP 加载器没有把该存储值展开到 HTTP Header，已报 [上游 #14532](https://github.com/QwenLM/qwen-code/issues/14532)。安装/Connected 不代表鉴权可用；在上游修复验证并发布前，本候选不应执行真实媒体请求。不提供把真实 Token 写进明文配置的绕过办法，也不自动付费重试。
+
 [English](../README.md) · [注册/登录与应用列表](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=sunoqwencode_readme_signup) · [当前价格](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=sunoqwencode_readme_pricing)
 
 ## 1. 通过 Qwen 原生扩展命令安装

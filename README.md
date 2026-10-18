@@ -4,6 +4,8 @@ Generate Suno music and retrieve completed audio through Ace Data Cloud. A nativ
 
 **Candidate source, not an official Qwen listing or released default integration.** Implementation is on `codex/native-qwen-extension` pending review. See repository Pull Requests for current state. Do not assume the initial main-branch README is an installable release.
 
+**Current runtime blocker (2026-10-18):** Qwen Code 0.25.2 installs and securely stores the sensitive setting, but its MCP loader does not read that stored value into HTTP Header references. See [upstream bug #14532](https://github.com/QwenLM/qwen-code/issues/14532). Do not treat install/Connected as authenticated use; this candidate is not ready for a real media request until the upstream fix is verified/released. No plaintext-Token workaround or paid retry is recommended.
+
 [简体中文](readme/README_zh_Hans.md) · [Register / sign in](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=sunoqwencode_readme_signup) · [API and current pricing](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=sunoqwencode_readme_pricing)
 
 ## 1. Install using Qwen's extension installer
