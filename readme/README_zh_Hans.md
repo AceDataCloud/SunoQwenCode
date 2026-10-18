@@ -26,7 +26,7 @@ qwen extensions install AceDataCloud/SunoQwenCode --ref codex/native-qwen-extens
 |---|---|---|
 | Windows Server2022 x64，Node22.23.3 | keytar 系统凭据存储（`keychain`） | 26 项通过，含保存设置→Header→localhost 初始化；仅覆盖该托管会话，不覆盖所有用户权限/锁定状态。 |
 | Linux x64，Node22.23.3 | Qwen 正常选择的 `encrypted_file` 加密文件后备 | 25 项通过；runner 系统 Secret Service 不可用，不能声称 Linux Keychain 已验。 |
-| macOS arm64，Node22.23.3 | 真实系统 Keychain；平台检查失败 | 用户级保存设置→Header→localhost 握手通过，随后目标工作区覆盖断言失败，先前11项通过；原因正定向排查。整组matrix不是全绿，既有x64加密文件CLI证据不覆盖此失败。 |
+| macOS arm64，Node22.23.3 | 真实系统 Keychain；修复补验26项通过 | 原matrix在工作区路径别名处失败；[定向修复验证](https://github.com/AceDataCloud/qwen-code/actions/runs/39120588598)统一物理目录身份后，user/workspace/未信任目录Header握手及故障处理通过。修复候选现为head6b5db858，仍未发布，旧matrix失败保留。 |
 
 本轮 Windows/Linux 补验构建 core 并使用真实存储/加载器/transport，不等于这两个平台完整交互 CLI 或已发布版本验收；既有 macOS 源码构建 CLI 证据单列。
 

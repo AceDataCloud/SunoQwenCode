@@ -19,7 +19,7 @@ A [validation-only fork run](https://github.com/AceDataCloud/qwen-code/actions/r
 |---|---|---|
 | Windows Server2022 x64, Node22.23.3 | System credential store (`keychain` through keytar) | 26 checks PASS, including stored Token → extension Header → localhost initialize. This covers the hosted runner session, not every user's permission or lock state. |
 | Linux x64, Node22.23.3 | Qwen's normal `encrypted_file` fallback | 25 checks PASS. The runner's system Secret Service was unavailable; this does not validate Linux Keychain. |
-| macOS arm64, Node22.23.3 | Real system Keychain; platform check FAILED | User-scope saved Header and localhost handshake passed, then target-workspace override failed after 11 passing checks. The cause is under focused investigation. The matrix run is not all green. Earlier local x64 encrypted-file CLI evidence does not cover this failure. |
+| macOS arm64, Node22.23.3 | Real system Keychain; follow-up 26 checks PASS | The original matrix failed at a workspace path alias. [Focused fix verification](https://github.com/AceDataCloud/qwen-code/actions/runs/39120588598) passes user/workspace/untrusted Header handshakes after canonical path identity. Fix candidate is now head6b5db858; it remains unreleased. The old matrix failure stays recorded. |
 
 These additional Windows/Linux checks build core and use its real storage/manager/transport; they do not replace a full Windows/Linux interactive CLI test or prove a released fix. Existing macOS source-built CLI checks remain separately recorded.
 
