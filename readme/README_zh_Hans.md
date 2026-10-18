@@ -14,7 +14,23 @@
 qwen extensions install AceDataCloud/SunoQwenCode --ref codex/native-qwen-extension
 ```
 
-基线为 Qwen 0.25.2+、Node 22+。确认本地扩展安装摘要后，按提示输入自己的 Token。正式源码合并发布后才使用省略 `--ref` 的命令。也可按 [Ace 目录说明](https://github.com/AceDataCloud/AceDataCloudQwenCode) 添加来源，在 `/extensions manage` → Discover 搜 **Suno**。用户添加目录不代表 Qwen 默认市场收录。
+安装验证基线为 Qwen0.25.2、Node22；真实鉴权仍需等待下文所述修复版。确认本地扩展安装摘要后，按提示输入自己的 Token。正式源码合并发布后才使用省略 `--ref` 的命令。也可按 [Ace 目录说明](https://github.com/AceDataCloud/AceDataCloudQwenCode) 添加来源，在 `/extensions manage` → Discover 搜 **Suno**。用户添加目录不代表 Qwen 默认市场收录。
+
+## 凭据存储与已验证平台边界
+
+**真实 Token 使用必须等待包含[修复 #14544](https://github.com/QwenLM/qwen-code/pull/14544) 的官方 Qwen 版本发布并复验。** 0.25.2 只是安装基线，不是鉴权已修复版本；目前没有已核验的修复发行版。
+
+[独立 fork 验证](https://github.com/AceDataCloud/qwen-code/actions/runs/39109190158)对同一修复候选构建 core，通过真实密钥存储、扩展加载器和 MCP transport 向 localhost 初始化，没有强制切换存储后端：
+
+| 环境 | 实际选择的后端 | 验证结果 |
+|---|---|---|
+| Windows Server2022 x64，Node22.23.3 | keytar 系统凭据存储（`keychain`） | 26 项通过，含保存设置→Header→localhost 初始化；仅覆盖该托管会话，不覆盖所有用户权限/锁定状态。 |
+| Linux x64，Node22.23.3 | Qwen 正常选择的 `encrypted_file` 加密文件后备 | 25 项通过；runner 系统 Secret Service 不可用，不能声称 Linux Keychain 已验。 |
+| macOS | 平台补验处理中 | 既有本地 macOS x64 完整 CLI 验证只覆盖隔离加密文件后端；本地缺少 native keytar binding，不能证明 macOS Keychain。 |
+
+本轮 Windows/Linux 补验构建 core 并使用真实存储/加载器/transport，不等于这两个平台完整交互 CLI 或已发布版本验收；既有 macOS 源码构建 CLI 证据单列。
+
+安装器在 `.qwen-extension-settings.json` 记录后端，不需复制或展示密钥 bundle。系统后端不可用时，Qwen 原有机制可以选择加密文件，它不是明文 Token 后备。安装后既定存储缺失/不可读应视为故障，不能静默换凭据；修复候选会保留管理入口、禁用 MCP 并提示卸载重装。重装可能保留既有 workspace override，需要时通过隐藏输入核查/轮换相应 scope。不要全局导出 Token、强制换后端、写入 manifest/参数，或解锁 Keychain/修改 OS 权限来绕过候选阻塞。
 
 ## 2. 注册、进入 General application、复制或创建 Token
 

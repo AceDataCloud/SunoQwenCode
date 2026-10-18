@@ -10,7 +10,7 @@ Generate Suno music and retrieve completed audio through Ace Data Cloud. A nativ
 
 ## 1. Install using Qwen's extension installer
 
-Qwen Code 0.25.2+ and Node 22+ are the tested baseline. In a terminal run the candidate source command:
+Qwen Code0.25.2 and Node22 were tested for installation; real authenticated use still requires the fixed release described below. In a terminal run the candidate source command:
 
 ```bash
 qwen extensions install AceDataCloud/SunoQwenCode --ref codex/native-qwen-extension
@@ -19,6 +19,22 @@ qwen extensions install AceDataCloud/SunoQwenCode --ref codex/native-qwen-extens
 The normal release command (after the implementation is merged/published) is `qwen extensions install AceDataCloud/SunoQwenCode`. Inspect the source and installation summary before confirming the local extension installation. This does not register an Ace LLM provider.
 
 To discover by brand, add the public [Ace Qwen catalog](https://github.com/AceDataCloud/AceDataCloudQwenCode) using the source URL in its README, then open `/extensions manage` → **Discover** and search **Suno**. A user-added source is not a default Qwen marketplace listing.
+
+## Credential storage and verified platform boundary
+
+**Wait for an official Qwen release containing [fix #14544](https://github.com/QwenLM/qwen-code/pull/14544) before using this extension with a real Token.** Qwen0.25.2 is the installation baseline, not a fixed authenticated-runtime version. No fixed release version has been verified yet.
+
+A [validation-only fork run](https://github.com/AceDataCloud/qwen-code/actions/runs/39109190158) built the owning core package at the exact fix candidate and exercised saved settings through Qwen's real MCP transport to localhost, without forcing a backend:
+
+| Environment | Selected backend | Evidence |
+|---|---|---|
+| Windows Server2022 x64, Node22.23.3 | System credential store (`keychain` through keytar) | 26 checks PASS, including stored Token → extension Header → localhost initialize. This covers the hosted runner session, not every user's permission or lock state. |
+| Linux x64, Node22.23.3 | Qwen's normal `encrypted_file` fallback | 25 checks PASS. The runner's system Secret Service was unavailable; this does not validate Linux Keychain. |
+| macOS | Pending platform follow-up | Earlier local macOS x64 full CLI checks passed only with an isolated encrypted-file backend. Local native keytar binding was unavailable, so those checks do not prove macOS Keychain. |
+
+These additional Windows/Linux checks build core and use its real storage/manager/transport; they do not replace a full Windows/Linux interactive CLI test or prove a released fix. Existing macOS source-built CLI checks remain separately recorded.
+
+The installer records the selected backend in `.qwen-extension-settings.json`; no need to copy or expose the secret bundle. Qwen can normally choose encrypted-file storage when the OS backend is unavailable; that is encrypted storage, not a plaintext Token fallback. A missing/unreadable selected store after installation is a failure, not permission to switch credentials silently. The fix candidate keeps the extension manageable, disables its MCP servers and asks for uninstall/reinstall. Reinstall can preserve existing workspace overrides; review and rotate scoped settings through hidden input if needed. Do not export the Token globally, force a different backend, put it in manifests/arguments, unlock a keychain or change OS permissions to work around this candidate's blocker.
 
 ## 2. Register, sign in and get an API Token
 
