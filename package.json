@@ -1,0 +1,16 @@
+{
+  "name": "@acedatacloud/suno-by-ace-data-cloud",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Generate Suno music and retrieve completed audio through Ace Data Cloud.",
+  "keywords": [
+    "suno",
+    "music",
+    "audio",
+    "songs",
+    "qwen-code",
+    "acedatacloud"
+  ],
+  "license": "MIT",
+  "repository": "https://github.com/AceDataCloud/SunoQwenCode"
+}
