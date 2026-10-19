@@ -2,7 +2,7 @@
 
 Generate Suno music and retrieve completed audio through Ace Data Cloud. A native Qwen extension with one service, its own credential prompt, and the existing hosted MCP implementation. No copied generation backend. Independently install/uninstall this service; the [Ace source catalog](https://github.com/AceDataCloud/AceDataCloudQwenCode) is optional.
 
-**Candidate source, not an official Qwen listing or released default integration.** Implementation is on `codex/native-qwen-extension` pending review. See repository Pull Requests for current state. Do not assume the initial main-branch README is an installable release.
+**Source prerelease `0.1.0-rc.1`.** This is an independently installable source release, not an official Qwen listing or an authenticated-media general-availability release. The runtime prerequisite below remains unresolved in the official CLI.
 
 **Current runtime blocker (2026-10-18):** Qwen Code 0.25.2 installs and securely stores the sensitive setting, but its MCP loader does not read that stored value into HTTP Header references. See [upstream bug #14532](https://github.com/QwenLM/qwen-code/issues/14532). Do not treat install/Connected as authenticated use; this candidate is not ready for a real media request until the upstream fix is verified/released. No plaintext-Token workaround or paid retry is recommended.
 
@@ -10,13 +10,13 @@ Generate Suno music and retrieve completed audio through Ace Data Cloud. A nativ
 
 ## 1. Install using Qwen's extension installer
 
-Qwen Code0.25.2 and Node22 were tested for installation; real authenticated use still requires the fixed release described below. In a terminal run the candidate source command:
+Qwen Code0.25.2 and Node22 were tested for installation; real authenticated use still requires the fixed release described below. For installation and review, use the normal Git repository command:
 
 ```bash
-qwen extensions install AceDataCloud/SunoQwenCode --ref codex/native-qwen-extension
+qwen extensions install AceDataCloud/SunoQwenCode
 ```
 
-The normal release command (after the implementation is merged/published) is `qwen extensions install AceDataCloud/SunoQwenCode`. Inspect the source and installation summary before confirming the local extension installation. This does not register an Ace LLM provider.
+To pin this source prerelease, use `qwen extensions install AceDataCloud/SunoQwenCode --ref v0.1.0-rc.1`. GitHub release notes and the tag identify the exact source commit. Inspect the source and installation summary before confirming the local extension installation. This does not register an Ace LLM provider.
 
 To discover by brand, add the public [Ace Qwen catalog](https://github.com/AceDataCloud/AceDataCloudQwenCode) using the source URL in its README, then open `/extensions manage` → **Discover** and search **Suno**. A user-added source is not a default Qwen marketplace listing.
 
@@ -24,13 +24,13 @@ To discover by brand, add the public [Ace Qwen catalog](https://github.com/AceDa
 
 **Wait for an official Qwen release containing [fix #14544](https://github.com/QwenLM/qwen-code/pull/14544) before using this extension with a real Token.** Qwen0.25.2 is the installation baseline, not a fixed authenticated-runtime version. No fixed release version has been verified yet.
 
-A [validation-only fork run](https://github.com/AceDataCloud/qwen-code/actions/runs/39109190158) built the owning core package at the exact fix candidate and exercised saved settings through Qwen's real MCP transport to localhost, without forcing a backend:
+The [current-head verification](https://github.com/AceDataCloud/qwen-code/actions/runs/39142135018) built exact upstream candidate `77b2196` and exercised saved settings through Qwen's real MCP transport to localhost, without forcing a backend. macOS/Windows each passed 26 checks; Linux passed 25 with its normal encrypted-file backend. These are candidate checks, not an official released fix:
 
 | Environment | Selected backend | Evidence |
 |---|---|---|
 | Windows Server2022 x64, Node22.23.3 | System credential store (`keychain` through keytar) | 26 checks PASS, including stored Token → extension Header → localhost initialize. This covers the hosted runner session, not every user's permission or lock state. |
 | Linux x64, Node22.23.3 | Qwen's normal `encrypted_file` fallback | 25 checks PASS. The runner's system Secret Service was unavailable; this does not validate Linux Keychain. |
-| macOS arm64, Node22.23.3 | Real system Keychain; follow-up 26 checks PASS | The original matrix failed at a workspace path alias. [Focused fix verification](https://github.com/AceDataCloud/qwen-code/actions/runs/39120588598) passes user/workspace/untrusted Header handshakes after canonical path identity. Fix candidate is now head6b5db858; it remains unreleased. The old matrix failure stays recorded. |
+| macOS arm64, Node22.23.3 | Real system Keychain; follow-up 26 checks PASS | The original matrix failed at a workspace path alias. [Focused fix verification](https://github.com/AceDataCloud/qwen-code/actions/runs/39120588598) passes user/workspace/untrusted Header handshakes after canonical path identity. Current fix candidate is head77b2196; it remains unreleased. The old matrix failure stays recorded. |
 
 These additional Windows/Linux checks build core and use its real storage/manager/transport; they do not replace a full Windows/Linux interactive CLI test or prove a released fix. Existing macOS source-built CLI checks remain separately recorded.
 
@@ -50,7 +50,7 @@ These are real Ace application-page screenshots from the SunoDify onboarding sou
 
 ## 3. Paste into Qwen's sensitive extension setting
 
-During installation, Qwen asks for **Ace Data Cloud API Token**. Paste only the raw Token, without `Bearer`, quotes or screenshot redaction characters. Qwen stores sensitive extension settings in its credential backend (keychain or encrypted-file fallback). This package stores only `$ACE_SUNO_API_TOKEN` in the HTTP Header template, never a built-in customer Token. Do not paste a Token into chat or run `qwen mcp add` to duplicate this server.
+For this source prerelease on an unfixed official Qwen CLI, enter only a synthetic placeholder and do not invoke the hosted MCP. Once a fixed official release has been verified, Qwen asks for **Ace Data Cloud API Token**; paste only the raw Token, without `Bearer`, quotes or screenshot redaction characters. Qwen stores sensitive extension settings in its credential backend (keychain or encrypted-file fallback). This package stores only `$ACE_SUNO_API_TOKEN` in the HTTP Header template, never a built-in customer Token. Do not paste a Token into chat or run `qwen mcp add` to duplicate this server.
 
 To rotate it later:
 
@@ -76,7 +76,7 @@ For a pending task, wait and retrieve the same ID again. For a failed task, pres
 
 | Symptom | Action |
 |---|---|
-| Install source/main has no manifest | Use the candidate `--ref` while review is open; do not describe this as a released default install. |
+| Missing manifest/version | Confirm the repository and source tag; use the pinned release command above. |
 | 401 / 403 | Check raw API Token, service access, expiry and Allowed APIs. A `platform-...` management token is not a media API Token. |
 | Missing tools | Restart Qwen, check `/extensions manage` and `/mcp`; settings.json with the same MCP name overrides an extension. |
 | Permission declined in scripts | Non-interactive calls cannot ask for approval; authorize only the required tool. Never auto-trust the whole service. |

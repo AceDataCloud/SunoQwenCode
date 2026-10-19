@@ -2,7 +2,7 @@
 
 通过 Ace Data Cloud 生成 Suno 音乐，并查询同一任务的音频结果。 每个服务独立安装、独立输入凭据，复用现有托管 MCP；不会安装其它四项，也不会自动增加 LLM 服务商。
 
-**当前为候选源码，未获 Qwen 官方收录、未默认内置。** 实现在 `codex/native-qwen-extension` 分支待人审；main 初始化 README 不是正式包。
+**源码预发行版 `0.1.0-rc.1`。** 本服务可独立安装源码，但未获 Qwen 官方收录或默认内置，也未达到真实媒体鉴权正式可用；下文官方 CLI 运行依赖仍未发布。
 
 **当前运行阻塞（2026-10-18）**：Qwen 0.25.2 能安装并安全保存敏感设置，但 MCP 加载器没有把该存储值展开到 HTTP Header，已报 [上游 #14532](https://github.com/QwenLM/qwen-code/issues/14532)。安装/Connected 不代表鉴权可用；在上游修复验证并发布前，本候选不应执行真实媒体请求。不提供把真实 Token 写进明文配置的绕过办法，也不自动付费重试。
 
@@ -11,22 +11,22 @@
 ## 1. 通过 Qwen 原生扩展命令安装
 
 ```bash
-qwen extensions install AceDataCloud/SunoQwenCode --ref codex/native-qwen-extension
+qwen extensions install AceDataCloud/SunoQwenCode
 ```
 
-安装验证基线为 Qwen0.25.2、Node22；真实鉴权仍需等待下文所述修复版。确认本地扩展安装摘要后，按提示输入自己的 Token。正式源码合并发布后才使用省略 `--ref` 的命令。也可按 [Ace 目录说明](https://github.com/AceDataCloud/AceDataCloudQwenCode) 添加来源，在 `/extensions manage` → Discover 搜 **Suno**。用户添加目录不代表 Qwen 默认市场收录。
+安装验证基线为 Qwen0.25.2、Node22；真实鉴权仍需等待下文所述修复版。如需固定源码版本，在安装命令增加 `--ref v0.1.0-rc.1`。当前未修复官方 CLI 只输入合成占位值，不使用真实 Token 或调用托管 MCP；待修复版核验后再按下文输入自己的 Token。也可按 [Ace 目录说明](https://github.com/AceDataCloud/AceDataCloudQwenCode) 添加来源，在 `/extensions manage` → Discover 搜 **Suno**。用户添加目录不代表 Qwen 默认市场收录。
 
 ## 凭据存储与已验证平台边界
 
 **真实 Token 使用必须等待包含[修复 #14544](https://github.com/QwenLM/qwen-code/pull/14544) 的官方 Qwen 版本发布并复验。** 0.25.2 只是安装基线，不是鉴权已修复版本；目前没有已核验的修复发行版。
 
-[独立 fork 验证](https://github.com/AceDataCloud/qwen-code/actions/runs/39109190158)对同一修复候选构建 core，通过真实密钥存储、扩展加载器和 MCP transport 向 localhost 初始化，没有强制切换存储后端：
+[当前 head 验证](https://github.com/AceDataCloud/qwen-code/actions/runs/39142135018)针对精确候选 `77b2196` 构建 core，通过真实密钥存储、加载器及 transport 向 localhost 初始化，未强制后端；macOS/Windows 各26项、Linux正常加密文件25项通过，不等于官方修复已发布：
 
 | 环境 | 实际选择的后端 | 验证结果 |
 |---|---|---|
 | Windows Server2022 x64，Node22.23.3 | keytar 系统凭据存储（`keychain`） | 26 项通过，含保存设置→Header→localhost 初始化；仅覆盖该托管会话，不覆盖所有用户权限/锁定状态。 |
 | Linux x64，Node22.23.3 | Qwen 正常选择的 `encrypted_file` 加密文件后备 | 25 项通过；runner 系统 Secret Service 不可用，不能声称 Linux Keychain 已验。 |
-| macOS arm64，Node22.23.3 | 真实系统 Keychain；修复补验26项通过 | 原matrix在工作区路径别名处失败；[定向修复验证](https://github.com/AceDataCloud/qwen-code/actions/runs/39120588598)统一物理目录身份后，user/workspace/未信任目录Header握手及故障处理通过。修复候选现为head6b5db858，仍未发布，旧matrix失败保留。 |
+| macOS arm64，Node22.23.3 | 真实系统 Keychain；修复补验26项通过 | 原matrix在工作区路径别名处失败；[定向修复验证](https://github.com/AceDataCloud/qwen-code/actions/runs/39120588598)统一物理目录身份后，user/workspace/未信任目录Header握手及故障处理通过。修复候选现为head77b2196，仍未发布，旧matrix失败保留。 |
 
 本轮 Windows/Linux 补验构建 core 并使用真实存储/加载器/transport，不等于这两个平台完整交互 CLI 或已发布版本验收；既有 macOS 源码构建 CLI 证据单列。
 
@@ -46,7 +46,7 @@ qwen extensions install AceDataCloud/SunoQwenCode --ref codex/native-qwen-extens
 
 ## 3. 粘贴到本扩展的敏感设置
 
-安装时在 **Ace Data Cloud API Token** 隐藏输入框中粘贴。凭据由 Qwen 的 keychain/加密文件后备存储管理；扩展 JSON 只保存变量名 `ACE_SUNO_API_TOKEN`。不把 Key 放到聊天、脚本参数或共享配置，也不执行 `qwen mcp add` 重复添加。
+当前源码预发行在未修复官方 CLI 中只输入合成占位值，不调用托管 MCP。修复发行版核验后，才在 **Ace Data Cloud API Token** 隐藏输入框粘贴真实 Token。凭据由 Qwen 的 keychain/加密文件后备存储管理；扩展 JSON 只保存变量名 `ACE_SUNO_API_TOKEN`。不把 Key 放到聊天、脚本参数或共享配置，也不执行 `qwen mcp add` 重复添加。
 
 ```bash
 qwen extensions settings set suno-by-ace-data-cloud "Ace Data Cloud API Token"

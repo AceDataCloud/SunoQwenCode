@@ -1,6 +1,6 @@
 {
   "name": "@acedatacloud/suno-by-ace-data-cloud",
-  "version": "0.1.0",
+  "version": "0.1.0-rc.1",
   "private": true,
   "description": "Generate Suno music and retrieve completed audio through Ace Data Cloud.",
   "keywords": [
