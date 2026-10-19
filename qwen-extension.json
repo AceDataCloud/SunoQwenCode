@@ -1,0 +1,31 @@
+{
+  "name": "suno-by-ace-data-cloud",
+  "version": "0.1.0-rc.1",
+  "displayName": "Suno by Ace Data Cloud",
+  "description": "Generate Suno music and retrieve completed audio through Ace Data Cloud.",
+  "contextFileName": "QWEN.md",
+  "mcpServers": {
+    "suno": {
+      "httpUrl": "https://suno.mcp.acedata.cloud/mcp",
+      "headers": {
+        "Authorization": "Bearer $ACE_SUNO_API_TOKEN"
+      },
+      "includeTools": [
+        "suno_list_models",
+        "suno_list_actions",
+        "suno_generate_music",
+        "suno_generate_custom_music",
+        "suno_get_task",
+        "suno_get_tasks_batch"
+      ]
+    }
+  },
+  "settings": [
+    {
+      "name": "Ace Data Cloud API Token",
+      "description": "Paste your raw Ace API Token with Suno access. Get it from https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=sunoqwencode_readme_api_key. Do not include Bearer. Source prerelease: use a synthetic placeholder until an official Qwen release with fix #14544 is verified.",
+      "envVar": "ACE_SUNO_API_TOKEN",
+      "sensitive": true
+    }
+  ]
+}

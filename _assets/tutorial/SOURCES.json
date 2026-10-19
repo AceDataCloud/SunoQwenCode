@@ -1,0 +1,26 @@
+{
+  "as_of": "2026-10-18",
+  "images": [
+    {
+      "file": "get-api-key-en.png",
+      "source_url": "https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png",
+      "type": "real_screenshot",
+      "date": "2026-10-07 source pin",
+      "limits": "Shared General application UI; redacted credentials, not Qwen installation proof."
+    },
+    {
+      "file": "create-api-key-en.png",
+      "source_url": "https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/create-api-key-en.png",
+      "type": "real_screenshot",
+      "date": "2026-10-07 source pin",
+      "limits": "Shared General application UI; redacted credentials, not Qwen installation proof."
+    },
+    {
+      "file": "qwen-provider-preview.png",
+      "type": "official_screenshot_edit",
+      "date": "2026-10-17 edit; screenshot version0.18.2 capture date unknown",
+      "source_url": "https://github.com/QwenLM/qwen-code/blob/7834280810757f6fd7338ff9e1b6beae8dbfcec1/README.md",
+      "limits": "Custom model auth entry preview only; not extension-settings dialog, not Ace execution."
+    }
+  ]
+}
