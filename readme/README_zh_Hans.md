@@ -1,8 +1,10 @@
 # Suno by Ace Data Cloud：Qwen Code 原生扩展
 
+<img src="../_assets/icon.jpg" alt="Suno" width="96">
+
 通过 Ace Data Cloud 生成 Suno 音乐，并查询同一任务的音频结果。 每个服务独立安装、独立输入凭据，复用现有托管 MCP；不会安装其它四项，也不会自动增加 LLM 服务商。
 
-**源码预发行版 `0.1.0-rc.1`。** 本服务可独立安装源码，但未获 Qwen 官方收录或默认内置，也未达到真实媒体鉴权正式可用；下文官方 CLI 运行依赖仍未发布。
+**源码预发行版 `0.1.0-rc.2`。** 本服务可独立安装源码，但未获 Qwen 官方收录或默认内置，也未达到真实媒体鉴权正式可用；下文官方 CLI 运行依赖仍未发布。
 
 **当前运行阻塞（2026-10-18）**：Qwen 0.25.2 能安装并安全保存敏感设置，但 MCP 加载器没有把该存储值展开到 HTTP Header，已报 [上游 #14532](https://github.com/QwenLM/qwen-code/issues/14532)。安装/Connected 不代表鉴权可用；在上游修复验证并发布前，本候选不应执行真实媒体请求。不提供把真实 Token 写进明文配置的绕过办法，也不自动付费重试。
 
@@ -14,7 +16,7 @@
 qwen extensions install AceDataCloud/SunoQwenCode
 ```
 
-安装验证基线为 Qwen0.25.2、Node22；真实鉴权仍需等待下文所述修复版。如需固定源码版本，在安装命令增加 `--ref v0.1.0-rc.1`。当前未修复官方 CLI 只输入合成占位值，不使用真实 Token 或调用托管 MCP；待修复版核验后再按下文输入自己的 Token。也可按 [Ace 目录说明](https://github.com/AceDataCloud/AceDataCloudQwenCode) 添加来源，在 `/extensions manage` → Discover 搜 **Suno**。用户添加目录不代表 Qwen 默认市场收录。
+安装验证基线为 Qwen0.25.2、Node22；真实鉴权仍需等待下文所述修复版。如需固定源码版本，在安装命令增加 `--ref v0.1.0-rc.2`。当前未修复官方 CLI 只输入合成占位值，不使用真实 Token 或调用托管 MCP；待修复版核验后再按下文输入自己的 Token。也可按 [Ace 目录说明](https://github.com/AceDataCloud/AceDataCloudQwenCode) 添加来源，在 `/extensions manage` → Discover 搜 **Suno**。用户添加目录不代表 Qwen 默认市场收录。
 
 ## 凭据存储与已验证平台边界
 
