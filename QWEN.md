@@ -1,4 +1,4 @@
-# Suno by Ace Data Cloud
+# Suno
 
 Use this extension's suno MCP tools for Suno only. This is an Ace Data Cloud integration, not an official Suno or Qwen endorsement.
 

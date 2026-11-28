@@ -1,10 +1,10 @@
-# Suno by Ace Data Cloud — Qwen Code extension
+# Suno — Qwen Code extension
 
 <img src="_assets/icon.jpg" alt="Suno" width="96">
 
 Generate Suno music and retrieve completed audio through Ace Data Cloud. A native Qwen extension with one service, its own credential prompt, and the existing hosted MCP implementation. No copied generation backend. Independently install/uninstall this service; the [Ace source catalog](https://github.com/AceDataCloud/AceDataCloudQwenCode) is optional.
 
-**Source prerelease `0.1.0-rc.2`.** This is an independently installable source release, not an official Qwen listing or an authenticated-media general-availability release. The runtime prerequisite below remains unresolved in the official CLI.
+**Source prerelease `0.1.0-rc.3`.** This is an independently installable source release, not an official Qwen listing or an authenticated-media general-availability release. The runtime prerequisite below remains unresolved in the official CLI.
 
 **Current runtime blocker (2026-10-18):** Qwen Code 0.25.2 installs and securely stores the sensitive setting, but its MCP loader does not read that stored value into HTTP Header references. See [upstream bug #14532](https://github.com/QwenLM/qwen-code/issues/14532). Do not treat install/Connected as authenticated use; this candidate is not ready for a real media request until the upstream fix is verified/released. No plaintext-Token workaround or paid retry is recommended.
 
@@ -18,7 +18,7 @@ Qwen Code0.25.2 and Node22 were tested for installation; real authenticated use 
 qwen extensions install AceDataCloud/SunoQwenCode
 ```
 
-To pin this source prerelease, use `qwen extensions install AceDataCloud/SunoQwenCode --ref v0.1.0-rc.2`. GitHub release notes and the tag identify the exact source commit. Inspect the source and installation summary before confirming the local extension installation. This does not register an Ace LLM provider.
+To pin this source prerelease, use `qwen extensions install AceDataCloud/SunoQwenCode --ref v0.1.0-rc.3`. GitHub release notes and the tag identify the exact source commit. Inspect the source and installation summary before confirming the local extension installation. This does not register an Ace LLM provider.
 
 To discover by brand, add the public [Ace Qwen catalog](https://github.com/AceDataCloud/AceDataCloudQwenCode) using the source URL in its README, then open `/extensions manage` → **Discover** and search **Suno**. A user-added source is not a default Qwen marketplace listing.
 

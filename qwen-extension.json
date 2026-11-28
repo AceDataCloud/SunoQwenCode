@@ -1,7 +1,7 @@
 {
   "name": "suno-by-ace-data-cloud",
-  "version": "0.1.0-rc.2",
-  "displayName": "Suno by Ace Data Cloud",
+  "version": "0.1.0-rc.3",
+  "displayName": "Suno",
   "description": "Generate Suno music and retrieve completed audio through Ace Data Cloud.",
   "contextFileName": "QWEN.md",
   "mcpServers": {
