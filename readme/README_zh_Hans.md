@@ -36,7 +36,7 @@ qwen extensions install AceDataCloud/SunoQwenCode
 
 ## 2. 注册、进入 General application、复制或创建 Token
 
-打开 [Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=sunoqwencode_readme_api_key) 并注册/登录。没有通用应用时先点 **Initialize General Application**；进入 **General application**，复制 API Key，或 **Manage Keys → Create** 创建名为 `Suno Qwen Code` 的独立 Key。
+打开 [Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=sunoqwencode_readme_api_key) 并注册/登录。进入 **General application**，复制 API Key，或 **Manage Keys → Create** 创建名为 `Suno Qwen Code` 的独立 Key。
 
 ![复制 API Key / Manage Keys](../_assets/tutorial/get-api-key-en.png)
 

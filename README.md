@@ -40,7 +40,7 @@ The installer records the selected backend in `.qwen-extension-settings.json`; n
 
 ## 2. Register, sign in and get an API Token
 
-1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=sunoqwencode_readme_api_key). Register/sign in if needed. If no **General application** exists, choose **Initialize General Application**.
+1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=sunoqwencode_readme_api_key). Register/sign in if needed.
 2. Open **General application** and copy an existing API Key, or choose **Manage Keys → Create** for a dedicated key named `Suno Qwen Code`.
 3. Check Suno access, current price and balance; review expiration, usage limitation and Allowed APIs. If restricting APIs, include `/suno/audios`, `/suno/tasks` as applicable to your selected operation. Permissions do not create balance or free generation.
 
